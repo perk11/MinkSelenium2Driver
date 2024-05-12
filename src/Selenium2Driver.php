@@ -210,7 +210,6 @@ class Selenium2Driver extends CoreDriver
     {
         return array(
             'browserName'       => 'firefox',
-            'name'              => 'Behat Test',
         );
     }
 
