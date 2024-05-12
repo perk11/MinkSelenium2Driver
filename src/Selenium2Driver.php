@@ -81,7 +81,7 @@ class Selenium2Driver extends CoreDriver
      * @param array|null $desiredCapabilities The desired capabilities
      * @param string     $wdHost              The WebDriver host
      */
-    public function __construct(string $browserName = 'firefox', ?array $desiredCapabilities = null, ?array $requiredCapabilities = null, string $wdHost = 'http://localhost:4444/wd/hub')
+    public function __construct(string $browserName = 'firefox', ?array $desiredCapabilities = null, string $wdHost = 'http://localhost:4444/wd/hub', ?array $requiredCapabilities = null)
     {
         $this->setBrowserName($browserName);
         $this->setDesiredCapabilities($desiredCapabilities);
