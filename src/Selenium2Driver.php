@@ -692,7 +692,7 @@ JS;
             $value = str_repeat(Key::BACKSPACE . Key::DELETE, $existingValueLength) . $value;
         }
 
-        $element->postValue(array('value' => array($value)));
+        $element->postValue(array('text' => $value));
         // Remove the focus from the element if the field still has focus in
         // order to trigger the change event. By doing this instead of simply
         // triggering the change event for the given xpath we ensure that the
