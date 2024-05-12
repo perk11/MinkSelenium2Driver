@@ -662,7 +662,7 @@ JS;
 
             if ('radio' === $elementType) {
                 if (!\is_string($value)) {
-                    throw new DriverException('Only string values can be used for a radio input.');
+                    throw new DriverException(sprintf('Only string values can be used for a radio input, got %s.', gettype($value)));
                 }
 
                 $this->selectRadioValue($element, $value);
@@ -672,7 +672,7 @@ JS;
 
             if ('file' === $elementType) {
                 if (!\is_string($value)) {
-                    throw new DriverException('Only string values can be used for a file input.');
+                    throw new DriverException(sprintf('Only string values can be used for a file input, got %s.', gettype($value)));
                 }
 
                 $element->postValue(array('value' => array(strval($value))));
@@ -682,7 +682,7 @@ JS;
         }
 
         if (!\is_string($value)) {
-            throw new DriverException(sprintf('Only string values can be used for a %s element.', $elementName));
+            throw new DriverException(sprintf('Only string values can be used for a %s element, got %s.', $elementName, gettype($value)));
         }
 
         $value = strval($value);
