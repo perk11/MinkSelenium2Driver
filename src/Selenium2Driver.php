@@ -676,7 +676,7 @@ JS;
                     throw new DriverException(sprintf('Only string values can be used for a file input, got %s.', gettype($value)));
                 }
 
-                $element->postValue(array('value' => array(strval($value))));
+                $element->postValue(array('text' => strval($value)));
 
                 return;
             }
