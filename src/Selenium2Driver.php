@@ -53,6 +53,11 @@ class Selenium2Driver extends CoreDriver
     private $desiredCapabilities;
 
     /**
+     * @var array
+     */
+    private $requiredCapabilities;
+
+    /**
      * The WebDriverSession instance
      * @var Session|null
      */
@@ -76,10 +81,11 @@ class Selenium2Driver extends CoreDriver
      * @param array|null $desiredCapabilities The desired capabilities
      * @param string     $wdHost              The WebDriver host
      */
-    public function __construct(string $browserName = 'firefox', ?array $desiredCapabilities = null, string $wdHost = 'http://localhost:4444/wd/hub')
+    public function __construct(string $browserName = 'firefox', ?array $desiredCapabilities = null, ?array $requiredCapabilities = null, string $wdHost = 'http://localhost:4444/wd/hub')
     {
         $this->setBrowserName($browserName);
         $this->setDesiredCapabilities($desiredCapabilities);
+        $this->setRequiredCapabilities($requiredCapabilities);
         $this->setWebDriver(new WebDriver($wdHost));
         $this->xpathEscaper = new Escaper();
     }
@@ -161,6 +167,18 @@ class Selenium2Driver extends CoreDriver
         }
 
         $this->desiredCapabilities = $desiredCapabilities;
+    }
+
+    public function setRequiredCapabilities(?array $requiredCapabilities = null)
+    {
+        if ($this->started) {
+            throw new DriverException("Unable to set desiredCapabilities, the session has already started");
+        }
+
+        if (null === $requiredCapabilities) {
+            $requiredCapabilities = array();
+        }
+        $this->requiredCapabilities = $requiredCapabilities;
     }
 
     /**
@@ -331,7 +349,7 @@ class Selenium2Driver extends CoreDriver
     public function start()
     {
         try {
-            $this->wdSession = $this->webDriver->session($this->browserName, $this->desiredCapabilities);
+            $this->wdSession = $this->webDriver->session($this->browserName, [$this->desiredCapabilities], $this->requiredCapabilities);
         } catch (\Exception $e) {
             throw new DriverException('Could not open connection: '.$e->getMessage(), 0, $e);
         }
