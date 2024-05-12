@@ -922,7 +922,7 @@ JS;
     {
         $window = $this->getWebDriverSession()->window($name ?: 'current');
         \assert($window instanceof Window);
-        $window->postSize(
+        $window->postRect(
             array('width' => $width, 'height' => $height)
         );
     }
